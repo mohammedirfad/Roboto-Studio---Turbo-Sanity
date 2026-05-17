@@ -39,8 +39,8 @@ export function BlogList({ blogs, isLoading = false }: BlogListProps) {
 
   return (
     <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
-      {blogs.map((blog) => (
-        <BlogCard blog={blog} key={blog._id} />
+      {blogs.map((blog: any) => (
+        <BlogCard blog={blog} key={blog._id || blog.objectID} />
       ))}
     </div>
   );

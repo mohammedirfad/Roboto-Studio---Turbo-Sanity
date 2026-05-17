@@ -28,7 +28,14 @@ export async function GET(request: Request) {
           params: { hitsPerPage: 10 },
         },
       ]);
-      return NextResponse.json(results[0].hits);
+      
+      // Map objectID to _id so the frontend components (like BlogList) don't throw key errors
+      const mappedHits = results[0].hits.map((hit: any) => ({
+        ...hit,
+        _id: hit.objectID
+      }));
+      
+      return NextResponse.json(mappedHits);
     } catch (error) {
       console.error("Algolia search error:", error);
       // Fallback to local search on error

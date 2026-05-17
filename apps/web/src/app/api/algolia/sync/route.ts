@@ -1,3 +1,4 @@
+import { queryAllBlogDataForSearch } from "@workspace/sanity/query";
 import { algoliasearch } from "algoliasearch";
 import { NextResponse } from "next/server";
 
@@ -6,7 +7,7 @@ import { client } from "@workspace/sanity/client";
 // Ensure this route is not statically generated
 export const dynamic = "force-dynamic";
 
-export async function POST() {
+export async function GET() {
   try {
     const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
     const adminKey = process.env.ALGOLIA_ADMIN_KEY;
@@ -20,26 +21,14 @@ export async function POST() {
 
     const algoliaClient = algoliasearch(appId, adminKey);
 
-    // Fetch all blog posts from Sanity
-    const blogs = await client.fetch(`
-      *[_type == "blog" && defined(slug.current)] {
-        _id,
-        title,
-        "slug": slug.current,
-        description,
-        "categories": categories[]->title,
-        publishedAt
-      }
-    `);
+    // Fetch all blog posts from Sanity using the exact fragment used by the frontend
+    const blogs = await client.fetch(queryAllBlogDataForSearch);
 
     // Transform to Algolia records
     const records = blogs.map((blog: any) => ({
+      ...blog,
       objectID: blog._id,
-      title: blog.title,
-      slug: blog.slug,
-      description: blog.description,
-      categories: blog.categories || [],
-      publishedAt: blog.publishedAt,
+      // We spread the rest of the blog properties so `image`, `authors`, `categories`, etc. are indexed!
     }));
 
     // Save records to Algolia
