@@ -97,10 +97,16 @@ function BlogContent({
     ? "mt-3 text-3xl font-semibold leading-tight"
     : "mt-3 text-lg font-semibold leading-6";
 
+  // Ensure the slug is a proper absolute path
+  let href = slug ?? "#";
+  if (href !== "#" && !href.startsWith("/")) {
+    href = `/${href}`;
+  }
+
   return (
     <div className="group relative">
       <HeadingTag className={headingClasses}>
-        <Link href={slug ?? "#"}>
+        <Link href={href}>
           <span className="absolute inset-0" />
           {title}
         </Link>

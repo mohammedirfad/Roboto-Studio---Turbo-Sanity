@@ -78,6 +78,7 @@ const blogCardFragment = /* groq */ `
   orderRank,
   ${imageFragment},
   publishedAt,
+  pokemon,
   ${blogAuthorFragment},
   "categories": categories[]->{
     _id,

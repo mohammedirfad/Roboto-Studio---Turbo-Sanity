@@ -10,6 +10,8 @@ import { GROUP, GROUPS } from "@/utils/constant";
 import { ogFields } from "@/utils/og-fields";
 import { seoFields } from "@/utils/seo-fields";
 
+import { PokemonInput } from "../../components/pokemon-input";
+
 export const blog = defineType({
   name: "blog",
   title: "Blog",
@@ -21,6 +23,20 @@ export const blog = defineType({
     "A blog post that will be published on the website. Add a title, description, author, and content to create a new article for readers.",
   fields: [
     orderRankField({ type: "blog" }),
+    defineField({
+      name: "pokemon",
+      title: "Pokémon Mascot",
+      type: "object",
+      group: GROUP.MAIN_CONTENT,
+      description: "Choose a Pokémon to associate with this blog post",
+      fields: [
+        { name: "name", type: "string" },
+        { name: "spriteUrl", type: "string" },
+      ],
+      components: {
+        input: PokemonInput,
+      },
+    }),
     defineField({
       name: "title",
       type: "string",

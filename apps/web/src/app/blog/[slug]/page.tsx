@@ -83,34 +83,53 @@ export default async function BlogSlugPage({
   if (!data) {
     return notFound();
   }
-  const { title, description, image, richText } = data ?? {};
+  const { title, description, image, richText, pokemon } = data ?? {};
 
   return (
     <div className="container mx-auto my-16 px-4 md:px-6">
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px]">
-        <main>
-          <ArticleJsonLd article={data} />
-          <header className="mb-8">
-            <h1 className="mt-2 font-bold text-4xl">{title}</h1>
-            <p className="mt-4 text-lg text-muted-foreground">{description}</p>
-          </header>
-          {image && (
-            <div className="mb-12">
-              <SanityImage
-                alt={title}
-                className="h-auto w-full rounded-lg"
-                height={900}
-                image={image}
-                loading="eager"
-                width={1600}
-              />
-            </div>
-          )}
+      <ArticleJsonLd article={data} />
+      
+      <header className="mb-12 text-center max-w-4xl mx-auto flex flex-col items-center">
+        {pokemon?.spriteUrl && (
+          <div className="mb-6 inline-flex items-center gap-3 rounded-full bg-muted/50 pr-5 pl-3 py-1.5 border shadow-sm">
+            <img 
+              src={pokemon.spriteUrl} 
+              alt={pokemon.name || "Pokemon mascot"} 
+              className="h-14 w-14 object-contain drop-shadow-md" 
+            />
+            <span className="text-sm font-semibold capitalize text-muted-foreground">
+              {pokemon.name}
+            </span>
+          </div>
+        )}
+        <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-tight text-balance">
+          {title}
+        </h1>
+        <p className="mt-6 text-xl text-muted-foreground leading-relaxed text-balance">
+          {description}
+        </p>
+      </header>
+
+      {image && (
+        <div className="mb-16 w-full max-w-5xl mx-auto overflow-hidden rounded-2xl shadow-xl ring-1 ring-gray-900/5">
+          <SanityImage
+            alt={title}
+            className="h-auto w-full object-cover aspect-video md:aspect-[21/9]"
+            height={900}
+            image={image}
+            loading="eager"
+            width={1600}
+          />
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_300px] max-w-6xl mx-auto">
+        <main className="prose prose-lg dark:prose-invert max-w-none [&>p]:mb-8 [&>p]:leading-loose">
           <RichText richText={richText} />
         </main>
 
         <div className="hidden lg:block">
-          <div className="sticky top-4 rounded-lg">
+          <div className="sticky top-8 rounded-lg">
             <TableOfContent richText={richText ?? []} />
           </div>
         </div>
