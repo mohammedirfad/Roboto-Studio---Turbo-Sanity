@@ -174,9 +174,11 @@ export const getPresentationUrl = () => {
 
   const presentationUrl = process.env.SANITY_STUDIO_PRESENTATION_URL;
   if (!presentationUrl) {
-    throw new Error(
-      "SANITY_STUDIO_PRESENTATION_URL must be set in production environment"
+    console.warn(
+      "WARNING: SANITY_STUDIO_PRESENTATION_URL is not set. Visual Editing preview will not work."
     );
+    // Return a dummy fallback so the studio doesn't crash, allowing the user to still use the CMS
+    return "https://missing-frontend-url.vercel.app";
   }
 
   return presentationUrl;
