@@ -15,10 +15,6 @@ const nextConfig: NextConfig = {
   logging: {
     fetches: {},
   },
-  devIndicators: {
-    appIsrStatus: false,
-    buildActivity: false,
-  },
   images: {
     minimumCacheTTL: 31_536_000,
     remotePatterns: [
