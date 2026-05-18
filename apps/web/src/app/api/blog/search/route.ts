@@ -21,16 +21,16 @@ export async function GET(request: Request) {
   if (appId && searchKey) {
     try {
       const client = algoliasearch(appId, searchKey);
-      const { results } = await client.search([
-        {
-          indexName: "blog_posts",
+      const results = await client.searchSingleIndex({
+        indexName: "blog_posts",
+        searchParams: { 
           query: query,
-          params: { hitsPerPage: 10 },
+          hitsPerPage: 10 
         },
-      ]);
+      });
       
       // Map objectID to _id so the frontend components (like BlogList) don't throw key errors
-      const mappedHits = results[0].hits.map((hit: any) => ({
+      const mappedHits = results.hits.map((hit: any) => ({
         ...hit,
         _id: hit.objectID
       }));
