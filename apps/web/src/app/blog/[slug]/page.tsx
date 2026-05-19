@@ -89,15 +89,19 @@ export default async function BlogSlugPage({
     <div className="container mx-auto my-16 px-4 md:px-6">
       <ArticleJsonLd article={data} />
       
-      <header className="mb-12 text-center max-w-4xl mx-auto flex flex-col items-center">
+      <header className="mb-14 text-center max-w-4xl mx-auto flex flex-col items-center">
         {pokemon?.spriteUrl && (
-          <div className="mb-6 inline-flex items-center gap-3 rounded-full bg-muted/50 pr-5 pl-3 py-1.5 border shadow-sm">
-            <img 
-              src={pokemon.spriteUrl} 
-              alt={pokemon.name || "Pokemon mascot"} 
-              className="h-14 w-14 object-contain drop-shadow-md" 
-            />
-            <span className="text-sm font-semibold capitalize text-muted-foreground">
+          <div className="mb-8 inline-flex flex-col items-center gap-3">
+            <div className="relative group flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/40 dark:to-purple-900/40 border border-indigo-200 dark:border-indigo-800/50 shadow-lg transition-transform duration-300 hover:scale-110">
+              <div className="absolute inset-0 rounded-full bg-indigo-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <img 
+                src={pokemon.spriteUrl} 
+                alt={pokemon.name || "Pokemon mascot"} 
+                className="relative z-10 h-24 w-24 object-contain drop-shadow-xl" 
+                style={{ imageRendering: 'pixelated' }}
+              />
+            </div>
+            <span className="text-sm font-bold tracking-widest uppercase text-indigo-500 dark:text-indigo-400">
               {pokemon.name}
             </span>
           </div>

@@ -68,16 +68,18 @@ export function BlogPageContent({
 
   return (
     <main className="bg-background">
-      <div className="container mx-auto my-16 px-4 md:px-6">
+      <div className="container max-w-5xl mx-auto my-16 px-4 md:px-8">
         <BlogHeader description={description} title={title} />
 
-        <SearchInput
-          className="mt-8 mb-4"
+        <div className="max-w-2xl mx-auto">
+          <SearchInput
+            className="mt-8 mb-4"
           onChange={setSearchQuery}
           onClear={() => setSearchQuery("")}
           placeholder="Search blogs..."
           value={searchQuery}
         />
+        </div>
 
         <CategoryFilter categories={categories} currentCategorySlug={currentCategorySlug} />
 

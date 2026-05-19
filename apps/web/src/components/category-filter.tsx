@@ -25,7 +25,7 @@ export function CategoryFilter({ categories, currentCategorySlug }: CategoryFilt
   }
 
   return (
-    <div className="my-8 flex flex-wrap gap-3">
+    <div className="my-8 flex flex-wrap justify-center gap-3">
       <Link
         href="/blog"
         className={cn(

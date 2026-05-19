@@ -35,22 +35,25 @@ function SearchResultsHeader({
 
 function EmptySearchState({ query }: { query: string }) {
   return (
-    <div className="py-12 text-center">
-      <div className="mx-auto max-w-md">
-        <h3 className="mb-2 font-medium text-foreground text-lg">
-          No articles found
+    <div className="py-24 flex flex-col items-center justify-center text-center">
+      <div className="mx-auto max-w-lg rounded-3xl border bg-card p-10 shadow-sm transition-all hover:shadow-md">
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+          <svg className="h-8 w-8 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <h3 className="mb-3 font-semibold text-foreground text-xl tracking-tight">
+          No matches found
         </h3>
-        <p className="mb-4 text-muted-foreground">
-          We couldn't find any articles matching "{query}". Try adjusting your
-          search terms.
+        <p className="mb-6 text-muted-foreground leading-relaxed">
+          We couldn't find any articles matching "<span className="font-medium text-foreground">{query}</span>".
         </p>
-        <div className="text-muted-foreground text-sm">
-          <p>Suggestions:</p>
-          <ul className="mt-2 space-y-1">
-            <li>• Check your spelling</li>
-            <li>• Try different keywords</li>
-            <li>• Use more general terms</li>
-          </ul>
+        <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground">
+          <p className="font-medium">Try adjusting your search:</p>
+          <div className="flex flex-wrap justify-center gap-2 mt-2">
+            <span className="rounded-full bg-muted px-3 py-1">Check spelling</span>
+            <span className="rounded-full bg-muted px-3 py-1">Use broader terms</span>
+          </div>
         </div>
       </div>
     </div>
